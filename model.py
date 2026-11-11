@@ -101,9 +101,9 @@ PROFILE_FIELDS = {
         "role_sought": ("Role sought", "select", ["advisor", "CEO co-founder", "board member"]),
     },
     "VC": {
-        "fund_size_eur": ("Fund size (EUR)", "int", None),
+        "fund_size_eur": ("Fund size", "int", None),
         "stage": ("Investment stage", "select", ["pre-seed", "seed", "Series A"]),
-        "ticket_eur": ("Typical ticket (EUR)", "int", None),
+        "ticket_eur": ("Typical ticket", "int", None),
         "lead": ("Leads rounds", "bool", None),
     },
     "incubator": {

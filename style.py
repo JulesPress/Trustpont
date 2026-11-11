@@ -57,7 +57,7 @@ h3 { font-size: 1.15rem !important; }
 /* Maturity scale */
 .tb-scale { display: flex; gap: 4px; margin: 0.2rem 0 0.4rem 0; }
 .tb-scale div { flex: 1; height: 8px; border-radius: 2px; background: var(--line); }
-.tb-scale div.in { background: var(--teal-12); }
+.tb-scale div.in { background: var(--teal-12); box-shadow: inset 0 0 0 1px var(--teal); }
 .tb-scale div.at { background: var(--teal); }
 
 .tb-progress { height: 8px; border-radius: 2px; background: var(--line); overflow: hidden; }
