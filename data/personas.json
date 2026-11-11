@@ -1,0 +1,12 @@
+{
+  "research": {
+    "name": "Elena Marchetti",
+    "headline": "PhD candidate in materials science, Politecnico di Milano",
+    "owner": {"name": "Elena Marchetti", "institution": "Politecnico di Milano", "country": "Italy", "field": "Materials science", "phd_year": 2027}
+  },
+  "business": {
+    "name": "Lukas Brenner",
+    "headline": "Head of Open Innovation, Calcestra Building Materials",
+    "identity": {"name": "Lukas Brenner", "organisation": "Calcestra Building Materials", "country": "Germany", "role": "Head of Open Innovation"}
+  }
+}
