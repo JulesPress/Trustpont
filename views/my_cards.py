@@ -47,13 +47,13 @@ if not wizard:
     st.title("My cards" if role == "research" else "My card")
     flash = st.session_state.pop("flash", None)
     if flash:
-        st.success(flash)
+        ui.note(flash)
     cards = store.my_cards(role)
     if st.button("Create a new card", type="primary"):
         start(new_card(), 1)
         st.rerun()
     if not cards:
-        st.info("You have no card yet.")
+        ui.note("You have no card yet.")
     cols = st.columns(2, gap="large")
     for i, card in enumerate(cards):
         with cols[i % 2]:

@@ -13,7 +13,7 @@ st.write("")
 
 cards = store.my_cards("research")
 if not cards:
-    st.info("You have no card yet.")
+    ui.note("You have no card yet.")
     st.stop()
 
 ids = [c["id"] for c in cards]

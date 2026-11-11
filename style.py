@@ -34,6 +34,8 @@ h3 { font-size: 1.15rem !important; }
 .tb-muted { color: var(--muted); font-size: 0.88rem; }
 .tb-label { color: var(--muted); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
 .tb-overdue { color: var(--terracotta); font-weight: 500; }
+.tb-note { background: var(--teal-06); border-left: 2px solid var(--teal); padding: 0.6rem 0.9rem;
+  border-radius: 4px; margin: 0.4rem 0 0.8rem 0; }
 .tb-notice { color: var(--muted); font-size: 0.82rem; font-style: italic; }
 
 /* Score badge: the number carries the meaning */

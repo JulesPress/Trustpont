@@ -35,6 +35,11 @@ def tags(items):
     return "".join(f'<span class="tb-tag">{escape(str(i))}</span>' for i in items)
 
 
+def note(text):
+    # Single-accent replacement for st.info / st.success / st.warning
+    md(f'<div class="tb-note">{escape(text)}</div>')
+
+
 def label(text):
     md(f'<div class="tb-label">{escape(text)}</div>')
 

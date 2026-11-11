@@ -13,7 +13,7 @@ mine = [c for c in store.my_cards(role) if c["status"] != "draft"]
 
 st.title("Browse business" if role == "research" else "Browse research")
 if not mine:
-    st.info("Publish a card first: scores are computed against it.")
+    ui.note("Publish a card first: scores are computed against it.")
     st.stop()
 
 

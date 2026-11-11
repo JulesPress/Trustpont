@@ -13,7 +13,7 @@ matches = sorted(store.my_matches(role), key=lambda m: m["last_action_at"], reve
 
 st.title("Match detail")
 if not matches:
-    st.info("No matches yet. Browse the other side to send a first request.")
+    ui.note("No matches yet. Browse the other side to send a first request.")
     st.stop()
 
 ids = [m["id"] for m in matches]
@@ -44,7 +44,7 @@ if m["status"] == model.DECLINED and m["decline_reason"]:
 
 # --- Scores and explanation ---
 if score is None:
-    st.warning("These two cards are now more than two maturity levels apart, so they no longer count as a match.")
+    ui.note("These two cards are now more than two maturity levels apart, so they no longer count as a match.")
 else:
     with st.container(border=True):
         c1, c2, c3 = st.columns(3)
