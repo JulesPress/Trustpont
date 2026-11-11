@@ -85,8 +85,11 @@ def researcher_name(rc, revealed=True):
 
 
 def business_name(bc):
+    # People-centred profiles are known by their name, organisations by the organisation
     i = bc["identity"]
-    return i["organisation"] if i["organisation"] and i["organisation"] != "Independent" else i["name"]
+    if bc["profile_type"] in ("business developer", "ex-founder") or not i["organisation"]:
+        return i["name"]
+    return i["organisation"]
 
 
 # --- Cards ---
@@ -217,12 +220,12 @@ def match_table(matches, viewer, key):
         theirs = bc if viewer == "research" else rc
         rows.append({
             "Counterpart": counterpart(m, viewer),
-            ("Your card" if viewer == "research" else "Research"): rc["title"],
+            "Score": s["mutual"] if s else None,
+            "Status": m["status"],
             "Sector": ", ".join(theirs["sectors"]),
             "Equity": theirs["equity_expected"],
             "Geography": ", ".join(bc["geography_accepted"]) if viewer == "research" else rc["geography"]["country"],
-            "Score": s["mutual"] if s else None,
-            "Status": m["status"],
+            ("Your card" if viewer == "research" else "Research"): rc["title"],
         })
     # A fresh key after each click so the selection does not re-trigger on return
     nonce = st.session_state.setdefault("table_nonce", 0)
