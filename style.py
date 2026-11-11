@@ -29,6 +29,7 @@ h3 { font-size: 1.15rem !important; }
   background: var(--paper); border-color: var(--line) !important; border-radius: 4px; box-shadow: none;
 }
 
+[data-testid="stHeaderActionElements"] { display: none; }
 [data-testid="stSidebar"] { border-right: 1px solid var(--line); }
 [data-testid="stSidebar"] .tb-brand { font-family: 'Spectral', serif; font-size: 1.5rem; color: var(--ink); }
 
