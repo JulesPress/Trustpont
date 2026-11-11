@@ -1,0 +1,15 @@
+# Secrets: each teammate uses their own Anthropic API key, never committed
+.streamlit/secrets.toml
+.env
+*.key
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
