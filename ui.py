@@ -40,7 +40,7 @@ def label(text):
 
 
 def euros(n):
-    return f"EUR {n:,.0f}".replace(",", " ")
+    return f"EUR\u00a0{n:,.0f}".replace(",", "\u00a0")
 
 
 def maturity_text(level):
@@ -94,7 +94,7 @@ def business_name(bc):
 
 # --- Cards ---
 
-def research_card(rc, revealed=True, show_part2=True, score=None):
+def research_card(rc, revealed=True, show_part2=True, score=None, compact=False):
     with st.container(border=True):
         top = f'<span class="tb-label">Research card · {escape(rc["status"])}</span>'
         if score is not None:
@@ -112,6 +112,8 @@ def research_card(rc, revealed=True, show_part2=True, score=None):
 
         label("The problem")
         st.write(rc["key_problem"] or "—")
+        if compact:
+            return
         label("In plain words")
         st.write(rc["plain_explanation"] or "—")
         if rc["concrete_examples"]:
