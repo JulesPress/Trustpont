@@ -116,14 +116,13 @@ if role == "research":
         st.subheader("Time guard")
         cap, used = ui.weekly_cap(), ui.committed_hours()
         share = min(used / cap, 1) if cap else 1
-        full = used >= cap
-        ui.md(f'<div class="tb-progress{" full" if full else ""}"><div style="width:{share * 100:.0f}%"></div></div>')
+        ui.md(f'<div class="tb-progress"><div style="width:{share * 100:.0f}%"></div></div>')
         st.markdown(f"**{used} of {cap} hours** committed this week")
         ui.md('<div class="tb-muted">Estimated from your live matches: 1 h a week per contact, '
               '2 h with a meeting scheduled, 5 h for an active collaboration. '
               'Set your weekly cap on your card.</div>')
         if ui.time_guard_warning():
-            ui.md('<div class="tb-overdue">Cap reached: accepting a new match will ask for confirmation.</div>')
+            ui.md("<b>Cap reached:</b> accepting a new match will ask for confirmation.")
 
 with cols[-1], st.container(border=True):
     st.subheader("Upcoming")

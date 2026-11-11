@@ -123,7 +123,8 @@ def create_match(researcher_card_id, business_card_id, initiated_by, author, not
         return existing
     m = model.new_match(researcher_card_id, business_card_id, initiated_by, today().isoformat())
     m["id"] = _new_id("m")
-    m["next_action"]["due"] = (today() + timedelta(days=7)).isoformat()
+    m["next_action"] = {"text": "Waiting for an answer to the request",
+                        "due": (today() + timedelta(days=7)).isoformat()}
     if note:
         m["log"].append({"at": today().isoformat(), "who": author, "text": note})
     _db()["matches"][m["id"]] = m

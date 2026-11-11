@@ -17,8 +17,7 @@ if not matches:
     st.stop()
 
 ids = [m["id"] for m in matches]
-if st.session_state.get("selected_match") not in ids:
-    st.session_state.selected_match = ids[0]
+current = st.session_state.get("selected_match")
 
 
 def describe(match_id):
@@ -27,7 +26,10 @@ def describe(match_id):
     return f"{ui.counterpart(m, role)} · {rc['title']} · {m['status']}"
 
 
-st.selectbox("Match", ids, key="selected_match", format_func=describe, label_visibility="collapsed")
+# Unkeyed on purpose: a keyed selectbox keeps showing a stale choice when its options change
+st.session_state.selected_match = st.selectbox(
+    "Match", ids, index=ids.index(current) if current in ids else 0,
+    format_func=describe, label_visibility="collapsed")
 m = store.get_match(st.session_state.selected_match)
 rc, bc = ui.match_cards(m)
 score = ui.match_score(m)
@@ -93,11 +95,11 @@ else:
             warning = ui.time_guard_warning() if role == "research" else None
             ok = True
             if warning:
-                ui.md(f'<div class="tb-overdue">{escape(warning)}</div>')
+                ui.md(f"<b>{escape(warning)}</b>")
                 ok = st.checkbox("Accept anyway", key=f"anyway_{m['id']}")
             if st.button("Accept the match", type="primary", disabled=not ok, key=f"accept_{m['id']}"):
                 store.update_match(m["id"], status="contacted", next_action={
-                    "text": f"Plan a first call with {ui.counterpart(m, role)}",
+                    "text": "Plan a first call",
                     "due": (store.today() + timedelta(days=7)).isoformat()})
                 store.add_log(m["id"], persona["name"], "Accepted the match. Identities are now visible to both sides.")
                 st.rerun()
@@ -111,7 +113,7 @@ else:
                 what = st.text_input("Topic", value="First call")
                 if st.form_submit_button("Schedule"):
                     store.update_match(m["id"], status="meeting scheduled",
-                                       next_action={"text": f"Meeting: {what} with {ui.counterpart(m, role)}",
+                                       next_action={"text": f"Meeting: {what}",
                                                     "due": when.isoformat()})
                     store.add_log(m["id"], persona["name"], f"Scheduled a meeting on {when.isoformat()}: {what}")
                     st.rerun()
@@ -127,13 +129,14 @@ else:
         ui.md('<div class="tb-muted">Prototype: messages are kept on the match for this session, nothing is emailed.</div>')
 
     with acts[2], st.container(border=True):
-        ui.label("Decline" if received or m["status"] != "not contacted" else "Withdraw")
+        verb = "Withdraw" if not received and m["status"] == "not contacted" else "Decline"
+        ui.label(verb)
         reasons = (["wrong sector", "no time", "too early for me", "other"] if role == "research"
                    else ["wrong sector", "no budget", "too early for us", "other"])
         with st.form(f"decline_{m['id']}", border=False):
             reason = st.radio("Reason", reasons, label_visibility="collapsed")
             detail = st.text_input("Detail (optional)")
-            if st.form_submit_button("Decline"):
+            if st.form_submit_button(verb):
                 recorded = reason if not detail.strip() else f"{reason}: {detail.strip()}"
                 store.update_match(m["id"], status=model.DECLINED, decline_reason=recorded,
                                    next_action={"text": "", "due": None})

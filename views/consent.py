@@ -17,9 +17,10 @@ if not cards:
     st.stop()
 
 ids = [c["id"] for c in cards]
-if st.session_state.get("consent_card") not in ids:
-    st.session_state.consent_card = ids[0]
-st.selectbox("Card", ids, key="consent_card", format_func=lambda i: store.get_card("research", i)["title"])
+current = st.session_state.get("consent_card")
+st.session_state.consent_card = st.selectbox(
+    "Card", ids, index=ids.index(current) if current in ids else 0,
+    format_func=lambda i: store.get_card("research", i)["title"])
 card = store.get_card("research", st.session_state.consent_card)
 
 business = store.published_cards("business")

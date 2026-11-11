@@ -24,11 +24,6 @@ h1 { font-size: 2.1rem !important; }
 h2 { font-size: 1.45rem !important; }
 h3 { font-size: 1.15rem !important; }
 
-/* Bordered containers look like sheets of paper */
-[data-testid="stVerticalBlockBorderWrapper"], div[data-testid="stVerticalBlock"][class*="border"] {
-  background: var(--paper); border-color: var(--line) !important; border-radius: 4px; box-shadow: none;
-}
-
 [data-testid="stHeaderActionElements"] { display: none; }
 [data-testid="stSidebar"] { border-right: 1px solid var(--line); }
 [data-testid="stSidebar"] .tb-brand { font-family: 'Spectral', serif; font-size: 1.5rem; color: var(--ink); }
@@ -63,7 +58,6 @@ h3 { font-size: 1.15rem !important; }
 
 .tb-progress { height: 8px; border-radius: 2px; background: var(--line); overflow: hidden; }
 .tb-progress div { height: 100%; background: var(--teal); }
-.tb-progress.full div { background: var(--terracotta); }
 
 .tb-hero { padding: 2.5rem 0 1rem 0; max-width: 46rem; }
 .tb-hero h1 { font-size: 2.8rem !important; line-height: 1.15; }

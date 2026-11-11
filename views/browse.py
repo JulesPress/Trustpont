@@ -23,9 +23,11 @@ def card_label(card_id):
 
 
 ids = [c["id"] for c in mine]
-if st.session_state.get("browse_card") not in ids:
-    st.session_state.browse_card = ids[0]
-st.selectbox("Scores computed against your card", ids, key="browse_card", format_func=card_label)
+current = st.session_state.get("browse_card")
+# Unkeyed on purpose: a keyed selectbox keeps showing a stale choice when its options change
+st.session_state.browse_card = st.selectbox(
+    "Scores computed against your card", ids, index=ids.index(current) if current in ids else 0,
+    format_func=card_label)
 me = store.get_card(role, st.session_state.browse_card)
 
 # --- Filters ---
