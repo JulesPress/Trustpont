@@ -36,8 +36,13 @@ with st.sidebar:
                 '<div class="tb-muted">Research to business, in a language both sides read</div>',
                 unsafe_allow_html=True)
     st.write("")
-    st.radio("Role", ["research", "business"], key="role", horizontal=True,
-             format_func=lambda r: "I am a researcher" if r == "research" else "I am business")
+    # Unkeyed: the landing buttons also set the role, and a keyed radio would send back its stale value
+    roles = ["research", "business"]
+    chosen = st.radio("Role", roles, index=roles.index(st.session_state.role), horizontal=True,
+                      format_func=lambda r: "I am a researcher" if r == "research" else "I am business")
+    if chosen != st.session_state.role:
+        st.session_state.role = chosen
+        st.rerun()
     persona = store.persona(st.session_state.role)
     st.markdown(f"**{persona['name']}**  \n"
                 f'<span class="tb-muted">{persona["headline"]}</span>', unsafe_allow_html=True)
