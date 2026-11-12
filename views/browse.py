@@ -2,6 +2,7 @@ from html import escape
 
 import streamlit as st
 
+import knowledge_graph
 import matching
 import model
 import store
@@ -78,6 +79,32 @@ rows.sort(key=lambda r: -r[0]["mutual"])
 
 ui.md(f'<div class="tb-muted">{len(rows)} profiles, best match first'
       + (f" · {hidden} hidden because the maturity gap is more than two levels" if hidden else "") + "</div>")
+if rows:
+    with st.expander("Explore a match as a knowledge graph"):
+        graph_options = {
+            c["id"]: (c["title"] if role == "business" else ui.business_name(c))
+            for _, c, _, _ in rows
+        }
+        selected_graph_id = st.selectbox(
+            "Profile to explore",
+            list(graph_options),
+            format_func=graph_options.get,
+            key="browse_graph_profile",
+        )
+        selected_row = next(row for row in rows if row[1]["id"] == selected_graph_id)
+        score, _, rc, bc = selected_row
+        graph = knowledge_graph.build_match_graph(
+            rc,
+            bc,
+            score,
+            researcher_label=rc["title"],
+            business_label=ui.business_name(bc),
+        )
+        st.graphviz_chart(knowledge_graph.to_dot(graph), use_container_width=True)
+        st.caption(
+            "Il grafo è ricostruito in memoria dai profili visibili. "
+            "Le valutazioni e il punteggio provengono dal matching esistente."
+        )
 st.write("")
 
 for s, c, rc, bc in rows:
