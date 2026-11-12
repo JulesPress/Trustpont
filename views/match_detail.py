@@ -74,10 +74,14 @@ else:
                   f"Business accepts {lo} to {hi}.</div>")
         with st.expander("How the score is computed"):
             rw, bw = rc["criteria_weights"], bc["criteria_weights"]
-            st.dataframe([{
-                "Criterion": model.CRITERIA_LABELS[c], "Sub-score": score["subs"][c][0],
-                "Researcher weight": rw[c], "Business weight": bw[c], "Detail": score["subs"][c][1],
-            } for c in model.CRITERIA], hide_index=True, use_container_width=True)
+            for criterion in model.CRITERIA:
+                sub_score, detail = score["subs"][criterion]
+                columns = st.columns([2, 0.8, 1, 1])
+                columns[0].write(model.CRITERIA_LABELS[criterion])
+                columns[1].write(f"{sub_score:g}")
+                columns[2].caption(f"Researcher: {rw[criterion]}")
+                columns[3].caption(f"Business: {bw[criterion]}")
+                st.caption(detail)
             st.caption("Sub-scores: 1 clear match, 0.5 partial, 0 none. Weights: Must have 5, Important 3, "
                        "Nice to have 1. Each side's score is the weighted average out of 100; the mutual score "
                        "is the average of the two.")
