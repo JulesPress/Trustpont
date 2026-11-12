@@ -46,14 +46,13 @@ if m["status"] == model.DECLINED and m["decline_reason"]:
 if score is None:
     ui.note("These two cards are now more than two maturity levels apart, so they no longer count as a match.")
 else:
+    h1, h2, h3 = st.columns(3, gap="medium")
+    h1.markdown(ui.tile("Mutual score", score["mutual"], "/ 100", "average of both sides' weighted scores", "◈", "grad"),
+                unsafe_allow_html=True)
+    h2.markdown(ui.tile("Researcher's view", score["research"], "", "with the researcher's weights", "◍"), unsafe_allow_html=True)
+    h3.markdown(ui.tile("Business view", score["business"], "", "with the business weights", "◔", "warm"), unsafe_allow_html=True)
+    st.write("")
     with st.container(border=True):
-        c1, c2, c3 = st.columns(3)
-        c1.markdown(f'<div class="tb-label">Mutual score</div><div style="font-size:2.4rem" class="tb-serif">{score["mutual"]}</div>',
-                    unsafe_allow_html=True)
-        c2.markdown(f'<div class="tb-label">With the researcher\'s weights</div>'
-                    f'<div style="font-size:1.6rem" class="tb-serif">{score["research"]}</div>', unsafe_allow_html=True)
-        c3.markdown(f'<div class="tb-label">With the business weights</div>'
-                    f'<div style="font-size:1.6rem" class="tb-serif">{score["business"]}</div>', unsafe_allow_html=True)
         gap = abs(score["research"] - score["business"])
         if gap >= 15:
             keen = "the researcher" if score["research"] > score["business"] else "the business side"
@@ -89,7 +88,7 @@ if m["status"] not in open_statuses:
     ui.md('<div class="tb-muted">This match is closed. No further action.</div>')
 else:
     acts = st.columns(3, gap="medium")
-    with acts[0], st.container(border=True):
+    with acts[0], st.container(border=True, height=320):
         if m["status"] == "not contacted" and received:
             ui.label("Accept")
             warning = ui.time_guard_warning() if role == "research" else None
@@ -118,7 +117,7 @@ else:
                     store.add_log(m["id"], persona["name"], f"Scheduled a meeting on {when.isoformat()}: {what}")
                     st.rerun()
 
-    with acts[1], st.container(border=True):
+    with acts[1], st.container(border=True, height=320):
         ui.label("Message")
         with st.form(f"msg_{m['id']}", border=False, clear_on_submit=True):
             text = st.text_area("Message", height=96, label_visibility="collapsed",
@@ -128,7 +127,7 @@ else:
                 st.rerun()
         ui.md('<div class="tb-muted">Prototype: messages are kept on the match for this session, nothing is emailed.</div>')
 
-    with acts[2], st.container(border=True):
+    with acts[2], st.container(border=True, height=320):
         verb = "Withdraw" if not received and m["status"] == "not contacted" else "Decline"
         ui.label(verb)
         reasons = (["wrong sector", "no time", "too early for me", "other"] if role == "research"

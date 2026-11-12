@@ -49,19 +49,22 @@ if not wizard:
     if flash:
         ui.note(flash)
     cards = store.my_cards(role)
-    if st.button("Create a new card", type="primary"):
+    b1, b2, _ = st.columns([1.3, 1.5, 3], vertical_alignment="center")
+    if b1.button("Create a new card", type="primary", use_container_width=True):
         start(new_card(), 1)
         st.rerun()
+    if role == "research":
+        with b2.container(key="consentlink"):
+            st.page_link("views/consent.py", label="Visibility & consent")
     if not cards:
         ui.note("You have no card yet.")
     cols = st.columns(2, gap="large")
     for i, card in enumerate(cards):
         with cols[i % 2]:
-            if role == "research":
-                ui.research_card(card, compact=True)
-            else:
-                ui.business_card(card)
-            if st.button("Edit this card", key=f"edit_{card['id']}"):
+            ui.poster_card(card, role)
+            with st.container(key=f"poster_edit_{card['id']}"):
+                edit = st.button("Edit card", key=f"edit_{card['id']}")
+            if edit:
                 start(copy.deepcopy(card), 3 if role == "research" else 2)
                 st.rerun()
     st.stop()
@@ -86,7 +89,7 @@ def bind(widget, field, label, **kw):
 
 st.title(("Edit card" if editing else "New card"))
 ui.md('<div class="tb-muted">' + " &nbsp;·&nbsp; ".join(
-    f'<b style="color:var(--teal)">{i + 1}. {s}</b>' if i + 1 == step else f"{i + 1}. {s}"
+    f'<b style="color:var(--accent-ink)">{i + 1}. {s}</b>' if i + 1 == step else f"{i + 1}. {s}"
     for i, s in enumerate(STEPS[role])) + "</div>")
 st.write("")
 
@@ -116,7 +119,7 @@ if role == "research":
         sectors = st.multiselect("Sectors (1 to 3)", model.SECTORS, key="wz_sectors", max_selections=3)
         maturity = st.select_slider("Maturity level", options=list(model.MATURITY), key="wz_maturity",
                                     format_func=ui.maturity_text)
-        c1, c2 = st.columns([1, 4])
+        c1, c2, _ = st.columns([1.5, 1, 3.5])
         if c1.button("Generate the card", type="primary", disabled=not (text.strip() and sectors)):
             with st.spinner("Claude is turning your abstract into a card..."):
                 result = ai.generate_card_from_abstract(text, sectors, maturity)
@@ -237,7 +240,7 @@ else:
         choice = st.radio("Profile type", model.PROFILE_TYPES, key="wz_profile_type",
                           format_func=lambda t: f"{model.PROFILE_LABELS[t]} · {blurbs[t]}",
                           label_visibility="collapsed")
-        c1, c2 = st.columns([1, 4])
+        c1, c2, _ = st.columns([1.5, 1, 3.5])
         if c1.button("Continue", type="primary"):
             if choice != card["profile_type"]:
                 card["extra"] = {}

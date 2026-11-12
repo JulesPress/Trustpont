@@ -1,4 +1,4 @@
-# TrustBridge
+# Trustpont
 
 Research-to-business matchmaking prototype built during the ENGAGE.EU Expedition+ week.
 PhD students and researchers publish a **card** written for business readers; companies,

@@ -1,0 +1,58 @@
+{
+ "research": {
+  "email": "elena.marchetti@polimi.example",
+  "phone": "",
+  "channel": "Video call",
+  "timezone": "Europe/Rome (CET)",
+  "languages": [
+   "Italian",
+   "English"
+  ],
+  "bio": "Third-year PhD candidate working on self-healing cementitious materials. I like turning lab results into something a plant manager can use, and I am looking for an industrial partner for a first pilot.",
+  "orcid": "",
+  "website": "",
+  "scholar": "",
+  "supervisor": "Prof. Giulia Ferraro",
+  "lab": "Laboratory of Smart Construction Materials",
+  "tto_name": "Technology Transfer Office",
+  "tto_email": "tto@polimi.example",
+  "publications": 4,
+  "patents": 0,
+  "office_hours": "Tue and Thu, 14:00-17:00",
+  "response": "Within 3 days",
+  "verified": "pending",
+  "member_since": "2026-09-14",
+  "n_request": true,
+  "n_digest": true,
+  "n_deadline": true,
+  "default_visibility": "anonymous"
+ },
+ "business": {
+  "email": "lukas.brenner@calcestra.example",
+  "phone": "+49 30 5550 1420",
+  "channel": "Email",
+  "timezone": "Europe/Berlin (CET)",
+  "languages": [
+   "German",
+   "English"
+  ],
+  "bio": "Open innovation lead at a mid-sized building materials producer. We scout university spin-offs and pilot-ready research that can cut cement use and extend the life of concrete.",
+  "website": "https://calcestra.example",
+  "linkedin": "",
+  "hq": "Berlin",
+  "founded": 1962,
+  "legal_name": "Calcestra Building Materials GmbH",
+  "legal_name_contact": "Dr. Anja Weiss",
+  "legal_email": "legal@calcestra.example",
+  "nda_ready": true,
+  "decision_weeks": 6,
+  "team": "Anja Weiss, Legal counsel\nMarkus Voigt, R&D lead",
+  "office_hours": "Mon to Fri, 09:00-17:00",
+  "response": "Within 24 hours",
+  "verified": "verified",
+  "member_since": "2026-08-03",
+  "n_request": true,
+  "n_digest": false,
+  "n_deadline": true
+ }
+}

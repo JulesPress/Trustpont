@@ -31,7 +31,7 @@ revealed_to = [b for b in business if (m := store.find_match(card["id"], b["id"]
 
 left, right = st.columns(2, gap="large")
 
-with left, st.container(border=True):
+with left, st.container(border=True, height=290):
     st.subheader("Who can see this card")
     choice = st.radio("Visibility", model.VISIBILITY, index=model.VISIBILITY.index(card["visibility"]),
                       key=f"vis_{card['id']}", horizontal=True,
@@ -54,7 +54,7 @@ with left, st.container(border=True):
     for b in revealed_to if card["visibility"] != "public" else []:
         ui.md(f"{escape(ui.business_name(b))} <span class='tb-muted'>· mutual acceptance</span>")
 
-with right, st.container(border=True):
+with right, st.container(border=True, height=290):
     st.subheader("Technology Transfer Office")
     required = st.checkbox("TTO validation required for this card", value=card["tto_required"],
                            key=f"tto_{card['id']}")
@@ -81,7 +81,7 @@ with st.container(border=True):
     ui.md('<div class="tb-muted">A revoked organisation no longer sees this card in its search, '
           "even if it is public.</div>")
     candidates = [b for b in business if b["id"] not in card["revoked"]]
-    c1, c2 = st.columns([3, 1])
+    c1, c2 = st.columns([3, 1], vertical_alignment="center")
     target = c1.selectbox("Organisation", [b["id"] for b in candidates], label_visibility="collapsed",
                           format_func=lambda i: ui.business_name(store.get_card("business", i)))
     if c2.button("Revoke access", disabled=not candidates):

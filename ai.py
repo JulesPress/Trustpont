@@ -58,7 +58,7 @@ def render_key_input():
                        "card generation runs in demo mode.")
 
 
-PROMPT = """You turn a researcher's abstract into a TrustBridge card that business people
+PROMPT = """You turn a researcher's abstract into a Trustpont card that business people
 (industry, investors, business developers) can read. Write plainly: no equations, no acronyms,
 no jargon. Be honest about limits. Output ONLY a JSON object with exactly these keys:
 

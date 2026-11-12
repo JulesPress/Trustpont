@@ -45,7 +45,7 @@ def c(text):
 
 
 s = []
-s.append(Paragraph("TrustBridge matching: method and code", H1))
+s.append(Paragraph("Trustpont matching: method and code", H1))
 s.append(Paragraph("Hand-over note for the teammate taking over the matching algorithm. "
                    "Branch <b>augustin/prototype</b>, file <b>matching.py</b> (about 120 lines).", SUB))
 
@@ -169,12 +169,12 @@ def footer(canvas, doc):
     canvas.saveState()
     canvas.setFont("Helvetica", 8)
     canvas.setFillColor(MUTED)
-    canvas.drawString(20 * mm, 12 * mm, "TrustBridge - ENGAGE.EU Expedition+ - matching hand-over")
+    canvas.drawString(20 * mm, 12 * mm, "Trustpont - ENGAGE.EU Expedition+ - matching hand-over")
     canvas.drawRightString(190 * mm, 12 * mm, f"Page {doc.page}")
     canvas.restoreState()
 
 
 doc = SimpleDocTemplate(OUT, pagesize=A4, leftMargin=20 * mm, rightMargin=20 * mm,
                         topMargin=18 * mm, bottomMargin=20 * mm,
-                        title="TrustBridge matching: method and code", author="TrustBridge team")
+                        title="Trustpont matching: method and code", author="Trustpont team")
 doc.build(s, onFirstPage=footer, onLaterPages=footer)

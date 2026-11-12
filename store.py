@@ -39,6 +39,7 @@ def init():
         "business": {c["id"]: c for c in _load("business_cards.json")},
         "matches": {m["id"]: m for m in matches},
         "personas": _load("personas.json"),
+        "profiles": _load("profiles.json"),
         "counter": 100,
     }
 
@@ -56,6 +57,14 @@ def _new_id(prefix):
 
 def persona(role):
     return _db()["personas"][role]
+
+
+def profile(role):
+    return _db()["profiles"][role]
+
+
+def update_profile(role, **fields):
+    _db()["profiles"][role].update(fields)
 
 
 def all_cards(role):

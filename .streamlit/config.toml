@@ -1,13 +1,17 @@
 [theme]
 base = "light"
-primaryColor = "#14564F"
-backgroundColor = "#FBFAF7"
+primaryColor = "#0F3F3F"
+backgroundColor = "#EEF1E0"
 secondaryBackgroundColor = "#FFFFFF"
-textColor = "#16181A"
-linkColor = "#14564F"
-borderColor = "#E4E1DA"
+textColor = "#0F2E2E"
+linkColor = "#0F3F3F"
+borderColor = "rgba(120,120,120,0.28)"
 showWidgetBorder = true
-baseRadius = "4px"
+baseRadius = "large"
+font = "sans-serif"
+
+[server]
+enableStaticServing = true
 
 [client]
 toolbarMode = "minimal"
