@@ -2,7 +2,6 @@
 from datetime import date
 from html import escape
 
-import pandas as pd
 import streamlit as st
 
 import matching
@@ -494,17 +493,19 @@ def match_table(matches, viewer, key):
             "Geography": ", ".join(bc["geography_accepted"]) if viewer == "research" else rc["geography"]["country"],
             ("Your card" if viewer == "research" else "Research"): rc["title"],
         })
-    # A fresh key after each click so the selection does not re-trigger on return
     nonce = st.session_state.setdefault("table_nonce", 0)
-    event = st.dataframe(
-        pd.DataFrame(rows), hide_index=True, use_container_width=True,
-        on_select="rerun", selection_mode="single-row", key=f"{key}_{nonce}",
-        column_config={"Score": st.column_config.NumberColumn(format="%d", width="small")},
-    )
-    if event.selection.rows:
-        st.session_state.table_nonce += 1
-        open_match(matches[event.selection.rows[0]]["id"])
-    md('<div class="tb-muted">Click a row to open the match.</div>')
+    columns = list(rows[0])
+    widths = [1.5, 0.6, 1, 1, 1, 1.2, 1.5, 0.8]
+    headers = st.columns(widths)
+    for column, heading in zip(headers, columns):
+        column.caption(heading)
+    for index, row in enumerate(rows):
+        cells = st.columns(widths)
+        for column, heading in zip(cells[:-1], columns):
+            column.write(row[heading])
+        if cells[-1].button("Open", key=f"{key}_{nonce}_{index}", use_container_width=True):
+            st.session_state.table_nonce += 1
+            open_match(matches[index]["id"])
 
 
 # --- Time guard (researcher side) ---
