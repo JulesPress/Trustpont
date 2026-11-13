@@ -3,6 +3,7 @@ from html import escape
 
 import streamlit as st
 
+import knowledge_graph
 import model
 import store
 import ui
@@ -84,6 +85,15 @@ else:
             st.caption("Sub-scores: 1 clear match, 0.5 partial, 0 none. Weights: Must have 5, Important 3, "
                        "Nice to have 1. Each side's score is the weighted average out of 100; the mutual score "
                        "is the average of the two.")
+        with st.expander("Explore this match as a knowledge graph"):
+            graph = knowledge_graph.build_match_graph(
+                rc, bc, score,
+                researcher_label=rc["title"] if revealed else "Anonymous researcher",
+                business_label=ui.business_name(bc),
+            )
+            st.graphviz_chart(knowledge_graph.to_dot(graph), use_container_width=True)
+            st.caption("The graph is rebuilt in memory from the two visible cards. "
+                       "Assessments and the score come from the existing matching.")
 
 # --- Actions ---
 st.subheader("Actions")

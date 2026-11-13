@@ -61,7 +61,7 @@ Landing page → *I am a researcher* → dashboard (decisions, time guard) → *
   so accepting always goes through the time guard and the decline reason is always recorded.
 - **Seed dates are day offsets** converted at load, so "overdue" and "in 2 days" stay true whatever
   the demo date. Scores are never stored and are recomputed from the cards on every screen.
-- **The knowledge graph is a temporary projection** of the selected, visible browse match. It adds
+- **The knowledge graph is a temporary projection** of the match open in the match detail page. It adds
   no database or persistence layer; scores still come from `matching.py`.
 - **Messages are a local log on the match**, with no backend and no email, as the brief excludes chat.
 - **The business side has no consent page.** Business cards carry no confidential research, so the
