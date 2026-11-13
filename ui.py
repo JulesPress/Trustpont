@@ -427,8 +427,9 @@ def business_card(bc, score=None):
              f'<div class="tb-muted">Accepts maturity {lo} to {hi}</div>{maturity_scale(None, (lo, hi))}')
     html += f'<div class="tb-blocks">{_block("Looking for", _text(bc["looking_for"]), True)}'
     html += (f'{_block("Engagement", tags(bc["engagement_type"]) or "—")}{_block("Brings", tags(bc["what_they_bring"]) or "—")}</div>')
+    hours = f"{bc['time_commitment']}\u00a0h"  # kept out of the f-string below for Python < 3.12
     html += (f'<div class="tb-facts three">{_fact("IP", bc["ip_expectation"])}{_fact("Equity", bc["equity_expected"])}'
-             f'{_fact("Time / month", str(bc["time_commitment"]) + "\u00a0h")}</div>')
+             f'{_fact("Time / month", hours)}</div>')
     t = bc["timeline"]
     html += (f'<div class="tb-muted" style="margin-top:0.8rem">Geography: {escape(", ".join(bc["geography_accepted"]))}<br>'
              f'Start: {escape(t["start"] or "—")} · Signs: {escape(t["signatory"] or "—")} · Budget: {escape(t["budget"] or "—")}</div>')
